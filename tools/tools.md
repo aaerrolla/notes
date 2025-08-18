@@ -27,43 +27,23 @@ how to download best quality
     usage:
         ffmpeg -i <input_file>  # show information about the input_file 
 
-### Transmission Daemon - Setting up command line transmission 
+        Example : record a left monitor  in  a  two monitor system   wihout audio
+         ffmpeg -video_size 1920x1080 -framerate 30 -f x11grab -i :1.0 screen_left.mp4
 
-    install 
-    ```
-    sudo apt install transmission-daemon transmission-cli
-    ```
-    access the rpc url  at localhost:9091
-    default username/password   transmission
-    
-    configure/ change default password , white list , etc 
+         record right 
+          ffmpeg -video_size 1920x1080 -framerate 30 -f x11grab -i :1.0+1920,0 screen_right.mp4
 
-    - first stop transmission-daemon
-    ```
-    sudo systemctl stop transmission-daemon.service 
-    ```
-    if you want to disable the service , so that  it wont start along with system
-    
-    ```
-    sudo systemctl disable now transmission-daemon.service
-    ```
-    - edit the config ,  config file at /etc/transmission-daemon/settings.json
-        change ipwhitelisting, password ,  download dir etc 
-    
-    start the service  
-    ```
-    sudo systemctl start transmission-daemon.service 
-    ```
+          with audio  left screen
 
-   #### Manage torrent with  transmission-remote 
+          list audio  devices  using pipe-wire 
+          pw-cli  list-objects | grep node.name
 
-    use  --auth <user:pass>  with  below commands 
+          "alsa_output.usb-Logitech_Logi_USB_Headset_000000000000-00.analog-stereo"
 
-    list torrent - transmission-remote -l
-    stop a torrent -  transmission-remote -t <torrent_id> -S 
-    start a torrent -   transmission-remote -t <torrent_id> -s 
 
-    remove torrent  -   transmission-remote -t <torrent_id> -r 
+           ffmpeg -video_size 1920x1080 -framerate 30 -f x11grab -i :1.0  -f pulse -i alsa_output.usb-Logitech_Logi_USB_Headset_000000000000-00.analog-stereo screen_-c:v libx264 -preset ultrafast -c:a aac left.mp4
+
+
 
 
 ###  Git, GitHub
