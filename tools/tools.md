@@ -4,10 +4,21 @@
 
 install
     sudo apt update && sudo apt install yt-dlp
-how to download
+update yt-dlp  to latest 
+    yt-dlp -U 
+
+how to download video
+
     yt-dlp <url-of-youtube-video>
+
 how to download best quality 
-    yt-dlp -S 
+
+    yt-dlp  -f bestvide+bestaudio/best   <URL>
+
+    -- use authentication 
+
+    yt-dlp  --cookies-from-browser chrome  -f bestvide+bestaudio/best  <URL>
+
 
 
 ### GNOME Terminal
@@ -42,6 +53,11 @@ how to download best quality
 
 
            ffmpeg -video_size 1920x1080 -framerate 30 -f x11grab -i :1.0  -f pulse -i alsa_output.usb-Logitech_Logi_USB_Headset_000000000000-00.analog-stereo screen_-c:v libx264 -preset ultrafast -c:a aac left.mp4
+
+        -- convert / extract audio from  video 
+
+        ffmpeg -i  <video>  audio.wav 
+
 
 
 
