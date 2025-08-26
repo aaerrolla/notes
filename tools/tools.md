@@ -4,8 +4,13 @@
 
 install
     sudo apt update && sudo apt install yt-dlp
-how to download
+update yt-dlp  to latest 
+    yt-dlp -U 
+
+how to download video
+
     yt-dlp <url-of-youtube-video>
+
 how to download best quality 
     yt-dlp -f bestvideo+bestaudio/best  <URL>
     
@@ -22,7 +27,14 @@ how to download best quality
     +: Tells yt-dlp to download these streams separately. 
     /best: If separate streams are not available or cannot be merged, it will default to the best format available as a single file. 
     --merge-output-format mp4: (Optional) Specifies the container format, like MP4, for the final merged file. 
-    <URL>: The URL of the video you want to download
+
+    yt-dlp  -f bestvide+bestaudio/best   <URL>
+
+    -- use authentication 
+
+    yt-dlp  --cookies-from-browser chrome  -f bestvide+bestaudio/best  <URL>
+
+
 
 ### GNOME Terminal
 
@@ -45,42 +57,28 @@ how to download best quality
         ffmpeg -i <input_file>  -o 
 
 ### Transmission Daemon - Setting up command line transmission 
+        Example : record a left monitor  in  a  two monitor system   wihout audio
+         ffmpeg -video_size 1920x1080 -framerate 30 -f x11grab -i :1.0 screen_left.mp4
 
-    install 
-    ```
-    sudo apt install transmission-daemon transmission-cli
-    ```
-    access the rpc url  at localhost:9091
-    default username/password   transmission
-    
-    configure/ change default password , white list , etc 
+         record right 
+          ffmpeg -video_size 1920x1080 -framerate 30 -f x11grab -i :1.0+1920,0 screen_right.mp4
 
-    - first stop transmission-daemon
-    ```
-    sudo systemctl stop transmission-daemon.service 
-    ```
-    if you want to disable the service , so that  it wont start along with system
-    
-    ```
-    sudo systemctl disable now transmission-daemon.service
-    ```
-    - edit the config ,  config file at /etc/transmission-daemon/settings.json
-        change ipwhitelisting, password ,  download dir etc 
-    
-    start the service  
-    ```
-    sudo systemctl start transmission-daemon.service 
-    ```
+          with audio  left screen
 
-   #### Manage torrent with  transmission-remote 
+          list audio  devices  using pipe-wire 
+          pw-cli  list-objects | grep node.name
 
-    use  --auth <user:pass>  with  below commands 
+          "alsa_output.usb-Logitech_Logi_USB_Headset_000000000000-00.analog-stereo"
 
-    list torrent - transmission-remote -l
-    stop a torrent -  transmission-remote -t <torrent_id> -S 
-    start a torrent -   transmission-remote -t <torrent_id> -s 
 
-    remove torrent  -   transmission-remote -t <torrent_id> -r 
+           ffmpeg -video_size 1920x1080 -framerate 30 -f x11grab -i :1.0  -f pulse -i alsa_output.usb-Logitech_Logi_USB_Headset_000000000000-00.analog-stereo screen_-c:v libx264 -preset ultrafast -c:a aac left.mp4
+
+        -- convert / extract audio from  video 
+
+        ffmpeg -i  <video>  audio.wav 
+
+
+
 
 
 ###  Git, GitHub
