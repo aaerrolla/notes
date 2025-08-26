@@ -7,8 +7,22 @@ install
 how to download
     yt-dlp <url-of-youtube-video>
 how to download best quality 
-    yt-dlp -S 
-
+    yt-dlp -f bestvideo+bestaudio/best  <URL>
+    
+    How it works 
+    This command instructs yt-dlp to select the best separate video and audio streams and merge them, 
+    or to fall back to the best combined format if merging isn't possible. 
+    You can specify the container format, such as MP4, with --merge-output-format mp4.
+ 
+    Command Breakdown
+    yt-dlp: The command-line tool itself. 
+    -f bestvideo+bestaudio/best: This is the key for best quality: 
+    bestvideo: Selects the highest quality video stream. 
+    bestaudio: Selects the highest quality audio stream. 
+    +: Tells yt-dlp to download these streams separately. 
+    /best: If separate streams are not available or cannot be merged, it will default to the best format available as a single file. 
+    --merge-output-format mp4: (Optional) Specifies the container format, like MP4, for the final merged file. 
+    <URL>: The URL of the video you want to download
 
 ### GNOME Terminal
 
@@ -26,6 +40,9 @@ how to download best quality
 
     usage:
         ffmpeg -i <input_file>  # show information about the input_file 
+
+        # extract audio from video 
+        ffmpeg -i <input_file>  -o 
 
 ### Transmission Daemon - Setting up command line transmission 
 
